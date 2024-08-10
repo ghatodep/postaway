@@ -1,0 +1,27 @@
+{
+  "name": "postaway",
+  "version": "1.0.0",
+  "description": "Postaway API is a robust and scalable API built on Express-Node, following RESTful principles. It is designed to streamline the development of social networking platforms by offering essential features like user authentication, post creation, and user engagement tools. With its intuitive documentation interface and comprehensive logging capabilities, Postaway API provides developers with a reliable and user-friendly solution for building and managing social media applications.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "nodemon ./server.js"
+  },
+  "keywords": [
+    "REST",
+    "NODE",
+    "JS",
+    "API",
+    "Social",
+    "Media",
+    "App",
+    "Express"
+  ],
+  "author": "Pushpak Ghatode (ghatodep@gmail.com)",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4",
+    "winston": "^3.14.1"
+  }
+}
