@@ -7,6 +7,7 @@ import UserRouter from "./src/components/user/user.routes.js";
 
 // importing middlewares here
 import errorHandler from "./src/middlewares/errorHandler.middleware.js";
+import { winstonLogger } from "./src/middlewares/logger.middleware.js";
 
 // creating a express server
 const server = express();
@@ -14,6 +15,9 @@ const server = express();
 // middleware to process the request body data
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
+
+// logging incoming request information
+server.use(winstonLogger);
 
 // root level get request handler
 server.get("/", (request, response, next) => {
