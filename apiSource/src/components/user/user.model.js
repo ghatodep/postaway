@@ -12,6 +12,38 @@ export default class UserModel {
   static getAllUsers() {
     return usersDb;
   }
+
+  static addNewUser(name, email, password) {
+    let newUser = new UserModel(null, name, email, password);
+    usersDb.push(newUser);
+    return {
+      userId: newUser.id,
+      userName: newUser.name,
+      userEmail: newUser.email,
+    };
+  }
+
+  static checkCreds(email, password) {
+    let ind = usersDb.findIndex((user) => {
+      return user.email == email;
+    });
+
+    if (ind == -1) {
+      return { error: `email id ${email} is not valid. Provide a valid one.` };
+    }
+
+    if (usersDb[ind].password == password) {
+      return {
+        userId: usersDb[ind].id,
+        userName: usersDb[ind].name,
+        userEmail: usersDb[ind].email,
+      };
+    } else {
+      return {
+        error: `Incorrect password given for this email - ${email}. Please try again with correct password.`,
+      };
+    }
+  }
 }
 
 let usersDb = [
