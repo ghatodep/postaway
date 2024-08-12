@@ -21,7 +21,7 @@ export const winstonLogger = (request, response, next) => {
   if (!url.includes("/api/user")) {
     reqBody = JSON.stringify(request.body);
   }
-  logger.http({ url: url });
+  logger.http({ url: url, requestMethod: request.method });
   logger.info({ requestBody: reqBody });
   next();
 };

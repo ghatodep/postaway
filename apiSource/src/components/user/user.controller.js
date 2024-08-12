@@ -33,7 +33,7 @@ export default class UserController {
     const { email, password } = request.body;
     const result = UserModel.checkCreds(email, password);
     if ("userId" in result) {
-      const token = jwt.sign(result, secretKey, { expiresIn: 600 });
+      const token = jwt.sign(result, secretKey, { expiresIn: 30 * 60 });
       return response.status(201).send({
         success: true,
         message: `User Logged in !`,

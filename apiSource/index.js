@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 
 // importing routers here
 import UserRouter from "./src/components/user/user.routes.js";
+import PostRouter from "./src/components/post/post.routes.js";
 
 // importing middlewares here
 import errorHandler from "./src/middlewares/errorHandler.middleware.js";
@@ -29,6 +30,8 @@ server.get("/", (request, response, next) => {
 
 // redirecting user requests to user router
 server.use("/api/user", UserRouter);
+// redirecting post requests to post router
+server.use("/api/post", PostRouter);
 
 // adding express error handler as application level middleware
 server.use(errorHandler);
