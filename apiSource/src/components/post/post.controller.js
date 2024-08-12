@@ -1,5 +1,4 @@
 import PostModel from "./post.model.js";
-import UserModel from "../user/user.model.js";
 import PostawayError from "../../suppliments/postawayError.js";
 
 export default class PostController {
@@ -28,7 +27,8 @@ export default class PostController {
   };
 
   createNewPost = (request, response, next) => {
-    const { caption, image } = request.body;
+    const { caption } = request.body;
+    const image = `http://localhost:1298/uploads/${request.file.filename}`;
     console.log(`Post creation request - ${caption} ~ ${image}`);
     const post = PostModel.addPost(caption, request.user.userId, image);
     if (post) {
@@ -71,7 +71,8 @@ export default class PostController {
   };
 
   updatePost = (request, response, next) => {
-    const { postId, caption, image } = request.body;
+    const { postId, caption } = request.body;
+    const image = `http://localhost:1298/uploads/${request.file.filename}`;
     console.log(`Post update request - ${postId} ~ ${caption} ~ ${image}`);
     const loggedUserId = request.user.userId;
     const result = PostModel.updatePost(postId, caption, loggedUserId, image);

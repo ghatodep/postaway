@@ -9,6 +9,7 @@ import PostRouter from "./src/components/post/post.routes.js";
 // importing middlewares here
 import errorHandler from "./src/middlewares/errorHandler.middleware.js";
 import { winstonLogger } from "./src/middlewares/logger.middleware.js";
+import { jwtAuthMiddleware } from "./src/middlewares/jwtAuth.middleware.js";
 
 // creating a express server
 const server = express();
@@ -16,6 +17,9 @@ const server = express();
 // middleware to process the request body data
 server.use(bodyParser.urlencoded({ extended: false }));
 server.use(bodyParser.json());
+
+// making static directory directly accessible or public
+server.use(express.static("./static/"));
 
 // logging incoming request information
 server.use(winstonLogger);
@@ -30,8 +34,9 @@ server.get("/", (request, response, next) => {
 
 // redirecting user requests to user router
 server.use("/api/user", UserRouter);
+
 // redirecting post requests to post router
-server.use("/api/post", PostRouter);
+server.use("/api/post", jwtAuthMiddleware, PostRouter);
 
 // adding express error handler as application level middleware
 server.use(errorHandler);
