@@ -38,20 +38,24 @@ export default class LikeController {
   };
 
   getLikesByPostId = (request, response, next) => {
-    console.log(
-      `request to get all the likes by post id - ${request.params.postId}`
-    );
-    const likes = LikeModel.getLikesByPostId(request.params.postId);
+    const postId = request.params.postId;
+    console.log(`request to get all the likes by post id - ${postId}`);
+    // validating post id
+    const post = PostModel.getPostById(postId);
+    if (!post) {
+      throw new PostawayError(400, `Invalid Post Id - ${postId}`);
+    }
+    const likes = LikeModel.getLikesByPostId(postId);
     if (likes.length) {
       response.status(200).send({
         success: true,
-        message: `${likes.length} like(s) on the post - ${request.params.postId}`,
+        message: `${likes.length} like(s) on the post - ${postId}`,
         data: likes,
       });
     } else {
       response.status(200).send({
         success: true,
-        message: `No one has likes post - ${request.params.postId}`,
+        message: `No one has likes post - ${postId}`,
         data: null,
       });
     }
