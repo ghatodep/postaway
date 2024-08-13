@@ -1,0 +1,37 @@
+{
+    "openapi" : "3.0.0",
+    "info":{
+        "version": "1.0.0",
+        "description": "Postaway API is a robust and scalable API built on Express-Node, following RESTful principles. It is designed to streamline the development of social networking platforms by offering essential features like user authentication, post creation, and user engagement tools. With its intuitive documentation interface and comprehensive logging capabilities, Postaway API provides developers with a reliable and user-friendly solution for building and managing social media applications.",
+        "title": "Postaway API"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:1298/"
+        }
+    ],
+    "components":{       
+        "securitySchemes": {
+            "JWT": {
+                "in": "header",
+                "name": "Authorization",
+                "type": "apiKey"
+            }
+        }
+    },
+    "paths": {
+        "/": {
+            "get":{
+                "tags": ["Postaway API Root" ],
+                "summary": "Welcome Message",
+                "description": "Root url of the postaway api.",
+                "security": [],
+                "responses" :{
+                    "200": {
+                        "description": "Returns a welcome message. And confirms that you are connected to the server."
+                    }
+                }
+            }
+        }
+    }
+}
