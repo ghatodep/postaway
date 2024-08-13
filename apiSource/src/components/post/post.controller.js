@@ -48,7 +48,7 @@ export default class PostController {
     const posts = PostModel.getAllPosts();
     response.status(200).send({
       success: true,
-      message: "retrieving all posts successful",
+      message: "retrieving all posts, successful",
       data: posts,
     });
   };

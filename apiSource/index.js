@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 // importing routers here
 import UserRouter from "./src/components/user/user.routes.js";
 import PostRouter from "./src/components/post/post.routes.js";
+import LikeRouter from "./src/components/like/like.routes.js";
 
 // importing middlewares here
 import errorHandler from "./src/middlewares/errorHandler.middleware.js";
@@ -37,6 +38,9 @@ server.use("/api/user", UserRouter);
 
 // redirecting post requests to post router
 server.use("/api/post", jwtAuthMiddleware, PostRouter);
+
+// redirecting like requests to like router
+server.use("/api/like", jwtAuthMiddleware, LikeRouter);
 
 // adding express error handler as application level middleware
 server.use(errorHandler);
