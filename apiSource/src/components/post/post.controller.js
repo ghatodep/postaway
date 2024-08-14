@@ -108,4 +108,32 @@ export default class PostController {
       });
     }
   };
+
+  filterByCaption = (request, response, next) => {
+    const { captionStringToSearch } = request.body;
+    console.log(
+      `Request to display posts by matching string with post caption - ${captionStringToSearch}`
+    );
+    if (!captionStringToSearch) {
+      throw new PostawayError(
+        400,
+        `Provide a 'captionStringToSearch' to search in the request body.`
+      );
+    }
+    const captionRegex = RegExp(captionStringToSearch, "i");
+    const posts = PostModel.filterByCaption(captionRegex);
+    if (posts.length) {
+      response.status(200).send({
+        success: true,
+        message: `${posts.length} post(s) Filtered.`,
+        data: posts,
+      });
+    } else {
+      response.status(200).send({
+        success: true,
+        message: `No post has matching caption with string - ${captionStringToSearch}`,
+        data: null,
+      });
+    }
+  };
 }

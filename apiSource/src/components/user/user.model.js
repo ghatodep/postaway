@@ -9,8 +9,10 @@ export default class UserModel {
 
   static idCounter = 0;
 
-  static getAllUsers() {
-    return usersDb;
+  static getUserObject(loggedInUserId) {
+    return usersDb.find((user) => {
+      return user.id == loggedInUserId;
+    });
   }
 
   static addNewUser(name, email, password) {
@@ -43,6 +45,21 @@ export default class UserModel {
         error: `Incorrect password given for this email - ${email}. Please try again with correct password.`,
       };
     }
+  }
+
+  static addBookmark(userId, postId) {
+    const userIndex = usersDb.findIndex((user) => {
+      return user.id == userId;
+    });
+    if (userIndex != -1) {
+      if (!("bookmark" in usersDb[userIndex])) {
+        usersDb[userIndex].bookmark = [postId];
+      } else if (!usersDb[userIndex].bookmark.find((p) => p == postId)) {
+        usersDb[userIndex].bookmark.push(postId);
+      }
+      return usersDb[userIndex].bookmark;
+    }
+    return [];
   }
 }
 

@@ -31,4 +31,7 @@ router.patch(
 // returns post by post id
 router.delete("/:postId", postController.deletePostById);
 
+// filtering posts based on captions of the post
+router.post("/filter", postController.filterByCaption);
+
 export default router;

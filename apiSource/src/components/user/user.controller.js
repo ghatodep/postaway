@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import UserModel from "./user.model.js";
+import PostModel from "../post/post.model.js";
 import { secretKey } from "../../middlewares/jwtAuth.middleware.js";
 import PostawayError from "../../suppliments/postawayError.js";
 
@@ -9,12 +10,20 @@ export default class UserController {
   }
 
   // returns all users
-  getAllUsers = (request, response, next) => {
-    console.log(`Request to get all users!`);
-    const users = UserModel.getAllUsers();
-    return response
-      .status(200)
-      .send({ success: true, message: `Here are your users`, data: users });
+  getUserInfo = (request, response, next) => {
+    console.log(
+      `Request to get logged in user information - ${request.user.userId}`
+    );
+    const user = UserModel.getUserObject(request.user.userId);
+    if (user) {
+      return response.status(200).send({
+        success: true,
+        message: `Here are your user details.`,
+        data: user,
+      });
+    } else {
+      throw new PostawayError(400, `Invalid User Id - ${request.user.userId}`);
+    }
   };
 
   register = (request, response, next) => {
@@ -34,7 +43,7 @@ export default class UserController {
     const result = UserModel.checkCreds(email, password);
     if ("userId" in result) {
       const token = jwt.sign(result, secretKey, { expiresIn: 30 * 60 });
-      return response.status(201).send({
+      return response.status(200).send({
         success: true,
         message: `User Logged in !`,
         data: result,
@@ -42,6 +51,30 @@ export default class UserController {
       });
     } else {
       throw new PostawayError(400, result.error);
+    }
+  };
+
+  bookmarkPostId = (request, response, next) => {
+    const { postId } = request.params;
+    const userId = request.user.userId;
+    console.log(`Request to Bookmark a post - ${postId} for user - ${userId}`);
+    // validate post id
+    const post = PostModel.getPostById(postId);
+    if (!post) {
+      throw new PostawayError(400, `Invalid post Id - ${postId}`);
+    }
+    const bookmarkedList = UserModel.addBookmark(userId, postId);
+    if (bookmarkedList) {
+      return response.status(200).send({
+        success: true,
+        message: `Book mark added.`,
+        data: bookmarkedList,
+      });
+    } else {
+      throw new PostawayError(
+        500,
+        "Internal Error! Failure in bookmark addition. Try Again."
+      );
     }
   };
 }

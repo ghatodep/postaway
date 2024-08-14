@@ -41,8 +41,8 @@ export default class PostModel {
           error: `Requested update on post with id '${postId}' is created by another user. Post can only be updated by user who created it.`,
         };
       } else {
-        postsDb[postIndex].caption = caption;
-        postsDb[postIndex].image = image;
+        if (caption) postsDb[postIndex].caption = caption;
+        if (image) postsDb[postIndex].image = image;
         return { post: postsDb[postIndex] };
       }
     } else {
@@ -67,6 +67,12 @@ export default class PostModel {
     } else {
       return { error: `Invalid post id - ${postId}` };
     }
+  }
+
+  static filterByCaption(captionRegex) {
+    return postsDb.filter((post) => {
+      return post.caption.match(captionRegex);
+    });
   }
 }
 

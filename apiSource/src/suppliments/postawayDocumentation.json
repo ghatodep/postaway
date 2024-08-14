@@ -28,8 +28,2283 @@
                 "security": [],
                 "responses" :{
                     "200": {
-                        "description": "Returns a welcome message. And confirms that you are connected to the server."
+                        "description": "Returns a welcome message. And confirms that you are connected to the server.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Welcome to Postaway API !"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
+                }
+            }
+        },
+        "/api/user/register":{
+            "post":{
+                "tags": ["User"],
+                "summary": "User Registration",
+                "description": "This api allows new users to get registered themselves in the postaway api system.",
+                "security": [],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Successfully registrated given user info in the system. Returns saved user info.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "New User Registered !"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": "userId: USER-1, userName: John Doe, userEmail: johndoe@gmail.com,"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/user/login":{
+            "post":{
+                "tags": ["User"],
+                "summary": "User Login",
+                "description": "This api allows registered users to log in to the postaway api system.",
+                "security": [],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description": "User login is successful. Returns a authentication token to be used for requesting to other apis.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "User Logged in !"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": "userId: USER-1, userName: John Doe, userEmail: johndoe@gmail.com,"
+                                        },
+                                        "authenticationToken":{
+                                            "type":"string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6IkpvaG4gRG9lIiwidXNlckVtYWlsIjoiam9obi5kb2VAZ21haWwuY29tIiwiaWF0IjoxNzIzNjE3MDIyLCJleHAiOjE3MjM2MTg4MjJ9.wbPdeAF09IrJkONwyr3FnoQneRdY32_DnjVO0LxPCHI"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in the user Login due incorrect credentials",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Incorrect password given for this email - john@gmail.com. Please try again with correct password."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/user/bookmark-post/{postId}":{
+            "post":{
+                "tags":["User"],
+                "summary": "Bookmark a Post",
+                "description": "This api bookmarks a post id given to the user information.",
+                "security":[
+                    { "JWT": {} }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Post Id Parameter"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully Bookmarked the post using given post id.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Book mark added."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [ "POST-1"]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in fetching likes data on a post.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Invalid Post Id - POST-2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/post/": {
+            "get":{
+                "tags": ["Post" ],
+                "summary": "All Posts By Logged in User",
+                "description": "This api returns all the posts created by logged in user.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched allposts data created by registered user.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "3 post(s) by logged in user - USER-3~John Doe"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [
+                                                {
+                                                    "id": "POST-1",
+                                                    "caption": "my caption 1",
+                                                    "userId": "USER-3",
+                                                    "image": "http://localhost:1298/uploads/image.png"
+                                                },
+                                                {
+                                                    "id": "POST-2",
+                                                    "caption": "my caption 2",
+                                                    "userId": "USER-3",
+                                                    "image": "http://localhost:1298/uploads/image-2.png"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            },
+            "post":{
+                "tags": ["Post" ],
+                "summary": "Create a New Post",
+                "description": "This api creates a new post in the postaway system with logged in user.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "requestBody":{
+                    "content":{
+                        "multipart/form-data":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "caption": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Successfully created a post by registered user.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "post created."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "POST-3",
+                                                "caption": "my caption 3",
+                                                "userId": "USER-3",
+                                                "image": "http://localhost:1298/uploads/PostImage_1723495663427_nezuko.jpg"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in creating new post.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Sorry, post creation request failed. Try Again!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/post/{postId}":{
+            "get":{
+                "tags": ["Post"],
+                "summary": "Get a Post By Post Id",
+                "description": "This api returns a post using specified post id.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Post Id Parameter"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched post data using post id.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "retrieved post by id - POST-1"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                    "id": "POST-1",
+                                                    "caption": "my caption 1",
+                                                    "userId": "USER-3",
+                                                    "image": "http://localhost:1298/uploads/image.png"
+                                                }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in fetching post data.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Failure in retrieving post. No Post found  with id - POST-3"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            },
+            "delete":{
+                "tags": ["Post"],
+                "summary": "Delete a Post By Post Id",
+                "description": "This api deletes a post using specified post id. and returns same post information.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Post Id Parameter"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully deleted post data with given post id.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Post Deleted. Below are the deleted post details."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "POST-1",
+                                                "caption": "my caption 1",
+                                                "userId": "USER-3",
+                                                "image": "http://localhost:1298/uploads/image.png"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in deleting post data.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Sorry, post deletion request failed. Requested deletion of post with id 'POST-3' is created by another user. Post can only be deleted by user who created it."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/post/all":{
+            "get":{
+                "tags": ["Post" ],
+                "summary": "All Posts in the system",
+                "description": "This api returns all the posts present in the postaway system.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched allposts data.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "retrieving all posts, successful"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [
+                                                {
+                                                    "id": "POST-1",
+                                                    "caption": "my caption 1",
+                                                    "userId": "USER-3",
+                                                    "image": "http://localhost:1298/uploads/image.png"
+                                                },
+                                                {
+                                                    "id": "POST-2",
+                                                    "caption": "my caption 2",
+                                                    "userId": "USER-2",
+                                                    "image": "http://localhost:1298/uploads/image-2.png"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/post/update":{
+            "patch":{
+                "tags": ["Post" ],
+                "summary": "Updates a Existing Post",
+                "description": "This api updates the caption and image of existing post in the postaway system with logged in user and data provided in request body.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "requestBody":{
+                    "content":{
+                        "multipart/form-data":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "caption": {
+                                        "type": "string"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Successfully updated a post by registered user.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "post updated."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "POST-2",
+                                                "caption": "my caption 2",
+                                                "userId": "USER-3",
+                                                "image": "http://localhost:1298/uploads/PostImage_1723495663427_nezuko.jpg"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in updating post.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Sorry, post updation request failed. Invalid post id - POST-2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/post/filter":{
+            "post":{
+                "tags": ["Post" ],
+                "summary": "Filter Posts by caption",
+                "description": "This api returns a list of posts by matching post's captions with the string provided in request body.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "captionStringToSearch":{
+                                        "type": "string"
+                                    }                                  
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Successfully performed the operation of filtering posts data by caption.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "1 post(s) Filtered."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "POST-2",
+                                                "caption": "my second post",
+                                                "userId": "USER-1",
+                                                "image": "myImage-2.png"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in filtering posts as string is not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Provide a 'captionStringToSearch' to search in the request body."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/like/":{
+            "get":{
+                "tags": ["Like" ],
+                "summary": "All Like(s) By Logged in User",
+                "description": "This api returns all the likes created by logged in user.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched all likes data created by registered user.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "3 like(s) by logged in user - USER-3~John Doe"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [
+                                                {
+                                                    "id": "like-1",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-2"
+                                                },
+                                                {
+                                                    "id": "LIKE-1",
+                                                    "userId": "USER-2",
+                                                    "postId": "POST-3"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/like/all":{
+            "get":{
+                "tags": ["Like" ],
+                "summary": "All Likes in the system",
+                "description": "This api returns all the likes present in the postaway system.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched all likes data.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "retrieving all likes, successful"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [
+                                                {
+                                                    "id": "LIKE-1",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-2"
+                                                },
+                                                {
+                                                    "id": "LIKE-2",
+                                                    "userId": "USER-2",
+                                                    "postId": "POST-3"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/like/{postId}":{
+            "get":{
+                "tags": ["Like"],
+                "summary": "Get Likes data on the a Post",                
+                "description": "This api returns all the likes data on post using specific post id.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Post Id Parameter"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched likes data on post using post id.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "100 like(s) on the post - POST-2"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [
+                                                {
+                                                    "id": "LIKE-1",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-2"
+                                                },
+                                                {
+                                                    "id": "LIKE-2",
+                                                    "userId": "USER-2",
+                                                    "postId": "POST-2"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in fetching likes data on a post.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Invalid Post Id - POST-3"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/like/toggle/{postId}": {
+            "post":{
+                "tags":["Like"],
+                "summary": "Toggle Like on Post",
+                "description": "It toggles the like on the post using post id and logged in user's id.",
+                "security":[
+                    { "JWT": {} }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Post Id Parameter"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched likes data on post using post id.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "added like on post - POST-2. Like object which was added is shown in data."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "LIKE-1",
+                                                "userId": "USER-3",
+                                                "postId": "POST-2"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in fetching likes data on a post.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Invalid Post Id - POST-2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/comment/":{
+            "get":{
+                "tags": ["Comment" ],
+                "summary": "All Comment(s) By Logged in User",
+                "description": "This api returns all the Comments created by logged in user.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched all Comments data created by registered user.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "3 comment(s) by logged in user - USER-3~John Doe"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [
+                                                {
+                                                    "id": "COMMENT-1",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-2",
+                                                    "comment": "first comment"
+                                                },
+                                                {
+                                                    "id": "COMMENT-2",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-3",
+                                                    "comment": "Usual comment"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            },
+            "post":{
+                "tags": ["Comment" ],
+                "summary": "Create a New Comment",
+                "description": "This api creates a new comment in the postaway system with logged in user, given post idand comment text",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "postId":{
+                                        "type": "string"
+                                    },
+                                    "comment":{
+                                        "type": "string"
+                                    }                                    
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Successfully created a comment by registered user.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "comment created."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "COMMENT-1",
+                                                "userId": "USER-3",
+                                                "postId": "POST-2",
+                                                "comment": "first comment"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in creating new comment.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Invalid Post Id - POST-0"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            },
+            "patch":{
+                "tags": ["Comment" ],
+                "summary": "Updates a Existing Comment",
+                "description": "This api updates the comment text of existing comment in the postaway system with logged in user and data provided in request body - commentId and comment text",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "requestBody":{
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "commentId":{
+                                        "type": "string"
+                                    },
+                                    "comment":{
+                                        "type": "string"
+                                    }                                    
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "201":{
+                        "description": "Successfully updated a comment by registered user, commentId and comment text",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "comment updated."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "COMMENT-1",
+                                                "userId": "USER-3",
+                                                "postId": "POST-2",
+                                                "comment": "first comment"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in updating comment.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Sorry, comment updation request failed. Invalid comment id - COMMENT-2"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/comment/all":{
+            "get":{
+                "tags": ["Comment" ],
+                "summary": "All Comments in the system",
+                "description": "This api returns all the comments present in the postaway system.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched all comments data.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "retrieving all comments, successful"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [
+                                                {
+                                                    "id": "COMMENT-1",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-2",
+                                                    "comment": "first comment"
+                                                },
+                                                {
+                                                    "id": "COMMENT-2",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-3",
+                                                    "comment": "Usual comment"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/comment/{commentId}":{
+            "get":{
+                "tags": ["Comment"],
+                "summary": "Get a Comment By Comment Id",
+                "description": "This api returns a comment using specified comment id.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "commentId",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Comment Id Parameter"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched comment data using comment id.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "retrieved comment by id - COMMENT-4"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "COMMENT-4",
+                                                "userId": "USER-3",
+                                                "postId": "POST-2",
+                                                "comment": "first comment"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in fetching comment data.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Failure in retrieving comment. No comment found  with id - COMMENT-3"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            },
+            "delete":{
+                "tags": ["Comment"],
+                "summary": "Delete a Comment By Comment Id",
+                "description": "This api deletes a comment using specified comment id. and returns same comment information before deletion.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "commentId",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Comment Id Parameter"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully deleted comment data with given comment id.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Post Deleted. Below are the deleted comments details."
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": {
+                                                "id": "COMMENT-4",
+                                                "userId": "USER-3",
+                                                "postId": "POST-2",
+                                                "comment": "first comment"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in deleting comment data.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Sorry, comment deletion request failed. Requested deletion of comment with id 'COMMENT-3' is created by another user. Post can only be deleted by user who created it."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                }
+            }
+        },
+        "/api/comment/postId/{postId}":{
+            "get":{
+                "tags": ["Comment"],
+                "summary": "Get Comments data on the a Post",                
+                "description": "This api returns all the comments data on post using specific post id.",
+                "security": [
+                    { "JWT": {} }
+                ],
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "postId",
+                        "required": "true",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "Post Id Parameter"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description": "Successfully fetched comments data on post using post id.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "100 comments(s) on the post - POST-2"
+                                        },
+                                        "data":{
+                                            "type":"Object",
+                                            "example": [
+                                                {
+                                                    "id": "COMMENT-1",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-2",
+                                                    "comment": "first comment"
+                                                },
+                                                {
+                                                    "id": "COMMENT-2",
+                                                    "userId": "USER-3",
+                                                    "postId": "POST-2",
+                                                    "comment": "Usual comment"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Failure in fetching comments data on a post.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Invalid Post Id - POST-3"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401":{
+                        "description": "Authentication Token Incorrect, expired or not provided.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Unauthorized Access - Invalid Token!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description": "Unexpected failure in the system.",
+                        "content":{
+                            "application/json":{
+                                "schema":{
+                                    "type":"object",
+                                    "properties":{
+                                        "success":{
+                                            "type":"boolean",
+                                            "format": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message":{
+                                            "type":"string",
+                                            "example": "Oops! Something went wrong. Please try again after some time."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
                 }
             }
         }

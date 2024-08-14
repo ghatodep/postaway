@@ -55,7 +55,7 @@ export default class LikeController {
     } else {
       response.status(200).send({
         success: true,
-        message: `No one has likes post - ${postId}`,
+        message: `No one has liked post - ${postId}`,
         data: null,
       });
     }

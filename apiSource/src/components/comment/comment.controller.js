@@ -97,7 +97,7 @@ export default class CommentController {
     } else {
       throw new PostawayError(
         400,
-        "Sorry, post creation request failed. Try Again!"
+        "Sorry, comment creation request failed. Try Again!"
       );
     }
   };
