@@ -1,0 +1,646 @@
+{
+	"info": {
+		"_postman_id": "90f23696-e008-43fb-87ed-a36d3f9ffec9",
+		"name": "Postaway API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36745329"
+	},
+	"item": [
+		{
+			"name": "api root",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1298/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all users info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzQ0NjU5MSwiZXhwIjoxNzIzNDQ3MTkxfQ.K4aL4gh8QPSlBSir6ETZG6-nkiise-07JxO4jhdwmmo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"varsha vasekar\",\r\n    \"email\": \"varsha@gmail.com\",\r\n    \"password\": \"varsha@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1298/api/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"varsha@gmail.com\",\r\n    \"password\": \"varsha@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1298/api/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU2MTUwMiwiZXhwIjoxNzIzNTYzMzAyfQ.-jKhW3Cyz6dR4RxqCsi5eEV5Y6GWn4HNjWbXpD8WzkA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "caption",
+							"value": "Cute Nezuko",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/2024_NewBeginning/CodingNinja_March10_Batch/Stage_3_Bootcamp_BackEndWithNodeJS_Basics/week_4/chapter_4_MiniProject2_Postaway/postaway_local/static/docs/nezuko.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:1298/api/post/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"post",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Posts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU0MTQ3MiwiZXhwIjoxNzIzNTQzMjcyfQ.XqxYlcW2ICmiULISD83HOGcCRy2s2KPlOP5DMj7GEEU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/post/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"post",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Posts By Logged in User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzQ5MTkxNiwiZXhwIjoxNzIzNDkzNzE2fQ.-ZHsxRvDS6KcSOXVZ4AuShfHSU2hxecHRlR7eqHSs7E",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/post/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"post",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Post By Post ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzQ5MDU0OCwiZXhwIjoxNzIzNDkyMzQ4fQ.RTsjeZOmXPvcWOdQkbEFgHmm6TQ7SM0-gf23viMydQg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/post/POST-5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"post",
+						"POST-5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update a Post",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzQ5NTM2NywiZXhwIjoxNzIzNDk3MTY3fQ.nJ7b-nyKDYbnk2fur_T4y2GF7WSvl4rL-d0GlcTSVvo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "postId",
+							"value": "POST-5",
+							"type": "text"
+						},
+						{
+							"key": "caption",
+							"value": "Naruto",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/D:/2024_NewBeginning/CodingNinja_March10_Batch/Stage_3_Bootcamp_BackEndWithNodeJS_Basics/week_4/chapter_4_MiniProject2_Postaway/postaway_local/static/docs/images-0.jpeg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:1298/api/post/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"post",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a Post By Post ID",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzQ5MTkxNiwiZXhwIjoxNzIzNDkzNzE2fQ.-ZHsxRvDS6KcSOXVZ4AuShfHSU2hxecHRlR7eqHSs7E",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/post/POST-3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"post",
+						"POST-3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Likes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU0MzY1MCwiZXhwIjoxNzIzNTQ1NDUwfQ.w1zug85jcQJ8qkA4hDfSBVt3vYM7WRLMtmY_co_zJxI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/like/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"like",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Likes By Logged in User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU0MzY1MCwiZXhwIjoxNzIzNTQ1NDUwfQ.w1zug85jcQJ8qkA4hDfSBVt3vYM7WRLMtmY_co_zJxI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/like",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"like"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Likes On a Post Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU0MTQ3MiwiZXhwIjoxNzIzNTQzMjcyfQ.XqxYlcW2ICmiULISD83HOGcCRy2s2KPlOP5DMj7GEEU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/like/POST-3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"like",
+						"POST-3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Toggle Like On a Post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU0MzY1MCwiZXhwIjoxNzIzNTQ1NDUwfQ.w1zug85jcQJ8qkA4hDfSBVt3vYM7WRLMtmY_co_zJxI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/like/toggle/POST-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"like",
+						"toggle",
+						"POST-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comments By Logged in User",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU1MjQ3MSwiZXhwIjoxNzIzNTU0MjcxfQ.nOwHXQWk1qxcaYrbewUSLYyoW73gNDFmzmjlol7noEE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/comment/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"comment",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Comments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU2ODE3OCwiZXhwIjoxNzIzNTY5OTc4fQ.1y3iOaZjjH-v9upMNjJ1_-emHvXjcE_RoXUXpxSmAxc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/comment/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"comment",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comment By Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU1NDc1NiwiZXhwIjoxNzIzNTU2NTU2fQ.D9qX54G-M_E1IcEq2W4Sqfkepp70KhDln3mLoKAFjpo",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/comment/COMMENT-7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"comment",
+						"COMMENT-7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Comments By Post Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU1NjQ5OSwiZXhwIjoxNzIzNTU4Mjk5fQ.OMzpG0ckEuEEYRGV2U6ZdPMNZ7jjrGC3_dcdSyHZxZE",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/comment/postId/POST-2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"comment",
+						"postId",
+						"POST-2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add New Comment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU2ODE3OCwiZXhwIjoxNzIzNTY5OTc4fQ.1y3iOaZjjH-v9upMNjJ1_-emHvXjcE_RoXUXpxSmAxc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"postId\": \"POST-2\",\r\n    \"comment\": \"Testing Comment Feature.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1298/api/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Comment",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU2ODE3OCwiZXhwIjoxNzIzNTY5OTc4fQ.1y3iOaZjjH-v9upMNjJ1_-emHvXjcE_RoXUXpxSmAxc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"commentId\": \"COMMENT-6\",\r\n    \"comment\": \"this comment is updated one !\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1298/api/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Comment By Comment Id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJVU0VSLTMiLCJ1c2VyTmFtZSI6InZhcnNoYSB2YXNla2FyIiwidXNlckVtYWlsIjoidmFyc2hhQGdtYWlsLmNvbSIsImlhdCI6MTcyMzU2ODE3OCwiZXhwIjoxNzIzNTY5OTc4fQ.1y3iOaZjjH-v9upMNjJ1_-emHvXjcE_RoXUXpxSmAxc",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:1298/api/comment/COMMENT-6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1298",
+					"path": [
+						"api",
+						"comment",
+						"COMMENT-6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Postaway Swagger Documentation UI",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
